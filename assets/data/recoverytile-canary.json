@@ -1,0 +1,22 @@
+{
+  "records": [
+    {
+      "id": "rec-1",
+      "name": "Backup Job Alpha",
+      "status": "ok",
+      "lastRun": "2026-06-20T22:00:00Z"
+    },
+    {
+      "id": "rec-2",
+      "name": "Replication Beta",
+      "status": "warn",
+      "lastRun": "2026-06-20T21:30:00Z"
+    },
+    {
+      "id": "rec-3",
+      "name": "Index Gamma",
+      "status": "down",
+      "lastRun": "2026-06-20T20:00:00Z"
+    }
+  ]
+}

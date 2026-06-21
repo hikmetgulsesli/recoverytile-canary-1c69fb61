@@ -21,8 +21,9 @@ body {
 .app-shell {
   min-height: 100vh;
   display: grid;
-  place-items: center;
+  place-items: start center;
   padding: 32px;
+  gap: 24px;
 }
 
 .hero {
@@ -49,4 +50,132 @@ h1 {
 .summary {
   margin: 14px 0 0;
   color: #a8b3c7;
+}
+
+.tile-panel,
+.controls {
+  width: min(720px, 100%);
+  border: 1px solid rgba(103, 232, 249, 0.2);
+  background: rgba(9, 16, 26, 0.7);
+  padding: 24px;
+}
+
+.tile-panel h2 {
+  margin: 0 0 16px;
+  font-size: 18px;
+  color: #d3e4fe;
+}
+
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(16, 32, 52, 0.85);
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.1s ease, border-color 0.2s ease;
+}
+
+.tile:hover {
+  transform: translateY(-2px);
+  border-color: rgba(103, 232, 249, 0.5);
+}
+
+.tile__status {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.tile--ok .tile__status {
+  background: #34d399;
+}
+
+.tile--warn .tile__status {
+  background: #fbbf24;
+}
+
+.tile--down .tile__status {
+  background: #f87171;
+}
+
+.tile__label {
+  font-size: 14px;
+  color: #a8b3c7;
+}
+
+.tile__value {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.count {
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.count--ok {
+  color: #34d399;
+}
+
+.count--warn {
+  color: #fbbf24;
+}
+
+.count--down {
+  color: #f87171;
+}
+
+.count--total {
+  color: #d3e4fe;
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 10px 18px;
+  border: 1px solid rgba(103, 232, 249, 0.4);
+  background: rgba(103, 232, 249, 0.1);
+  color: #67e8f9;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn:hover {
+  background: rgba(103, 232, 249, 0.2);
+}
+
+.error-banner {
+  width: min(720px, 100%);
+  padding: 12px 16px;
+  background: rgba(147, 0, 10, 0.85);
+  color: #ffb4ab;
+  border: 1px solid #ffb4ab;
 }
