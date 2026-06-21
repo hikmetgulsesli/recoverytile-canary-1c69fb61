@@ -64,6 +64,7 @@
       return;
     }
 
+    state.records = Array.isArray(state.records) ? state.records : [];
     const existingIndex = state.records.findIndex(function (r) {
       return r.id === record.id;
     });

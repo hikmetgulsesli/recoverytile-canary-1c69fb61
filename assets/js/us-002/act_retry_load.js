@@ -18,10 +18,12 @@
   window.US002.retryLoad = function () {
     const state = loadState();
     state.lastError = null;
+    saveState(state);
 
     if (!window.fetch) {
-      state.lastError = "Fetch is not available in this environment.";
-      saveState(state);
+      const currentState = loadState();
+      currentState.lastError = "Fetch is not available in this environment.";
+      saveState(currentState);
       if (typeof window.US002OperationsRender === "function") {
         window.US002OperationsRender();
       }
@@ -34,18 +36,20 @@
         return response.json();
       })
       .then(function (data) {
+        const currentState = loadState();
         if (data && Array.isArray(data.records)) {
-          state.records = data.records;
+          currentState.records = data.records;
         }
-        state.lastError = null;
-        saveState(state);
+        currentState.lastError = null;
+        saveState(currentState);
         if (typeof window.US002OperationsRender === "function") {
           window.US002OperationsRender();
         }
       })
       .catch(function (error) {
-        state.lastError = "Could not reload records: " + (error && error.message ? error.message : String(error));
-        saveState(state);
+        const currentState = loadState();
+        currentState.lastError = "Could not reload records: " + (error && error.message ? error.message : String(error));
+        saveState(currentState);
         if (typeof window.US002OperationsRender === "function") {
           window.US002OperationsRender();
         }

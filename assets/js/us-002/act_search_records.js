@@ -19,8 +19,12 @@
     const input = document.querySelector('[data-action-id="ACT_SEARCH_RECORDS"]');
     const query = input ? String(input.value || "").toLowerCase() : "";
 
+    const filterSelect = document.querySelector('[data-action-id="ACT_FILTER_STATUS"]');
+    const statusFilter = filterSelect ? String(filterSelect.value || "") : "";
+
     const state = loadState();
     state.searchQuery = query;
+    state.statusFilter = statusFilter;
     saveState(state);
 
     if (typeof window.US002OperationsRender === "function") {

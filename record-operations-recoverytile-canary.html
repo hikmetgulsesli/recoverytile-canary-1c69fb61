@@ -242,8 +242,8 @@
                     '<td><span class="status-pip status-pip--' + escapeHtml(record.status) + '"></span>' + escapeHtml(record.status) + "</td>" +
                     "<td>" + escapeHtml(formatDate(record.lastRun)) + "</td>" +
                     '<td>' +
-                    '<button type="button" class="btn" data-action-id="ACT_SELECT_RECORD" data-record-id="' + escapeHtml(record.id) + '" onclick="US002.selectRecord(\'' + escapeHtml(record.id) + '\')">Select</button>' +
-                    '<button type="button" class="icon-btn" data-action-id="ACT_ROW_MENU" data-record-id="' + escapeHtml(record.id) + '" onclick="US002.rowMenu(\'' + escapeHtml(record.id) + '\')" aria-label="Row options">more_vert</button>' +
+                    '<button type="button" class="btn" data-action-id="ACT_SELECT_RECORD" data-record-id="' + escapeHtml(record.id) + '" onclick="US002.selectRecord(this.getAttribute(\'data-record-id\'))">Select</button>' +
+                    '<button type="button" class="icon-btn" data-action-id="ACT_ROW_MENU" data-record-id="' + escapeHtml(record.id) + '" onclick="US002.rowMenu(this.getAttribute(\'data-record-id\'))" aria-label="Row options">more_vert</button>' +
                     "</td>" +
                     "</tr>"
                   );
