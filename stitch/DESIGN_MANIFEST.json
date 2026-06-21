@@ -1,0 +1,35 @@
+[
+  {
+    "screenId": "5e2ff960a34b48419d2f50397401c3d9",
+    "title": "Record Editor - RecoveryTile Canary",
+    "htmlFile": "5e2ff960a34b48419d2f50397401c3d9.html",
+    "deviceType": "DESKTOP",
+    "htmlUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzc0YWM5YTdmYzU5ZDRjZmZiYjAyMTk0ZDliMWRjNWI5EgsSBxCN19Wi9xcYAZIBIwoKcHJvamVjdF9pZBIVQhM5NzAyMDExODI2MDI5MzYyMTE4&filename=&opi=96797242",
+    "localHtml": "/Users/setrox/projects/recoverytile-canary-1c69fb61/stitch/5e2ff960a34b48419d2f50397401c3d9.html",
+    "surfaceIds": [
+      "SURF_RECORD_EDITOR"
+    ]
+  },
+  {
+    "screenId": "8ef8d05be17f4413997dc0045567264c",
+    "title": "Empty and Error Recovery - RecoveryTile Canary",
+    "htmlFile": "8ef8d05be17f4413997dc0045567264c.html",
+    "deviceType": "DESKTOP",
+    "htmlUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzNmYzYxOTYxZDFhMDQ4ZWY5Mjk0ZGI3OWFjMmMxNmZhEgsSBxCN19Wi9xcYAZIBIwoKcHJvamVjdF9pZBIVQhM5NzAyMDExODI2MDI5MzYyMTE4&filename=&opi=96797242",
+    "localHtml": "/Users/setrox/projects/recoverytile-canary-1c69fb61/stitch/8ef8d05be17f4413997dc0045567264c.html",
+    "surfaceIds": [
+      "SURF_EMPTY_AND_ERROR_RECOVERY"
+    ]
+  },
+  {
+    "screenId": "1b9e958d728a4562b9c4b5dbb0e9286b",
+    "title": "Record Operations - RecoveryTile Canary",
+    "htmlFile": "1b9e958d728a4562b9c4b5dbb0e9286b.html",
+    "deviceType": "DESKTOP",
+    "htmlUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2Y3OTc1M2FhMDUxZDQ2ZWY5MzMzNzExNDdjMDZiYjNlEgsSBxCN19Wi9xcYAZIBIwoKcHJvamVjdF9pZBIVQhM5NzAyMDExODI2MDI5MzYyMTE4&filename=&opi=96797242",
+    "localHtml": "/Users/setrox/projects/recoverytile-canary-1c69fb61/stitch/1b9e958d728a4562b9c4b5dbb0e9286b.html",
+    "surfaceIds": [
+      "SURF_RECORD_OPERATIONS"
+    ]
+  }
+]

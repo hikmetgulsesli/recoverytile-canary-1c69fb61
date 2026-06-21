@@ -1,0 +1,29 @@
+[
+  {
+    "screenId": "5e2ff960a34b48419d2f50397401c3d9",
+    "name": "Record Editor - RecoveryTile Canary",
+    "type": "form",
+    "description": "Record Editor - RecoveryTile Canary screen",
+    "surfaceIds": [
+      "SURF_RECORD_EDITOR"
+    ]
+  },
+  {
+    "screenId": "8ef8d05be17f4413997dc0045567264c",
+    "name": "Empty and Error Recovery - RecoveryTile Canary",
+    "type": "error",
+    "description": "Empty and Error Recovery - RecoveryTile Canary screen",
+    "surfaceIds": [
+      "SURF_EMPTY_AND_ERROR_RECOVERY"
+    ]
+  },
+  {
+    "screenId": "1b9e958d728a4562b9c4b5dbb0e9286b",
+    "name": "Record Operations - RecoveryTile Canary",
+    "type": "app-screen",
+    "description": "Record Operations - RecoveryTile Canary screen",
+    "surfaceIds": [
+      "SURF_RECORD_OPERATIONS"
+    ]
+  }
+]
