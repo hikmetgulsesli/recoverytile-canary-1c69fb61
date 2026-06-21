@@ -8,7 +8,7 @@
   let root = null;
 
   function init() {
-    root = document.querySelector('[data-setfarm-root="baseline"]');
+    root = document.querySelector('[data-setfarm-root="baseline"]') || document.querySelector('main');
 
     const loaded = Storage.load();
     if (loaded.ok && loaded.state) {
@@ -86,7 +86,9 @@
     document.body.appendChild(anchor);
     anchor.click();
     document.body.removeChild(anchor);
-    URL.revokeObjectURL(url);
+    setTimeout(function () {
+      URL.revokeObjectURL(url);
+    }, 100);
   }
 
   function exposeApp() {

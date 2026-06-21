@@ -48,7 +48,10 @@
   function createState(overrides) {
     const base = createDefaultState();
     const merged = Object.assign({}, base, overrides || {});
-    merged.counts = computeCounts(merged.tiles || []);
+    if (!Array.isArray(merged.tiles)) {
+      merged.tiles = base.tiles;
+    }
+    merged.counts = computeCounts(merged.tiles);
     return merged;
   }
 
