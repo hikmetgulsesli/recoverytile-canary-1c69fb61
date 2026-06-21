@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Record Editor - RecoveryTile Canary</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <style>
+      .nav { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+      .record-form { display: grid; gap: 16px; }
+      .record-form label { display: grid; gap: 6px; }
+      .record-form input[type="text"],
+      .record-form input[type="number"],
+      .record-form select,
+      .record-form textarea {
+        padding: 10px 12px;
+        background: rgba(16,32,52,0.85);
+        border: 1px solid rgba(103,232,249,0.3);
+        color: inherit;
+        font: inherit;
+      }
+      .record-form textarea { min-height: 96px; resize: vertical; }
+      .record-form fieldset { border: 1px solid rgba(103,232,249,0.2); padding: 12px; }
+      .record-form fieldset label { display: inline-flex; align-items: center; gap: 6px; margin-right: 16px; }
+      .tag-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-start; }
+      .tag-list { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+      .tag { padding: 4px 8px; background: rgba(103,232,249,0.12); border: 1px solid rgba(103,232,249,0.3); font-family: JetBrains Mono, monospace; font-size: 12px; }
+      .form-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+    </style>
+  </head>
+  <body>
+    <main data-setfarm-root="record-editor" data-testid="record-editor-root" class="app-shell">
+      <header class="hero">
+        <p class="eyebrow">RecoveryTile Canary</p>
+        <h1>Record Editor</h1>
+        <p class="summary">Create or edit a recovery record. Required fields are marked.</p>
+        <nav class="nav" aria-label="Screen navigation">
+          <a href="index.html" class="btn">Home</a>
+          <a href="record-operations-recoverytile-canary.html" class="btn">Record Operations</a>
+        </nav>
+        <div class="form-actions">
+          <button type="button" class="icon-btn" data-action-id="ACT_CLOSE_EDITOR" onclick="US002.cancelEdit()" aria-label="Close editor">close</button>
+        </div>
+      </header>
+
+      <form id="record-form" class="record-form tile-panel" onsubmit="US002.saveRecord(event)">
+        <label>
+          Name
+          <input type="text" name="name" placeholder="Record name" required />
+        </label>
+
+        <label>
+          Type
+          <select name="type">
+            <option value="">Select a type</option>
+            <option value="backup">Backup</option>
+            <option value="replication">Replication</option>
+            <option value="index">Index</option>
+            <option value="stream">Stream</option>
+          </select>
+        </label>
+
+        <label>
+          Notes
+          <textarea name="notes" placeholder="Add notes about this record"></textarea>
+        </label>
+
+        <label>
+          Region
+          <input type="text" name="region" placeholder="e.g. us-east-1" />
+        </label>
+
+        <label>
+          Priority
+          <input type="number" name="priority" min="1" max="5" value="3" />
+        </label>
+
+        <fieldset>
+          <legend>Status</legend>
+          <label><input type="radio" name="status" value="ok" checked /> OK</label>
+          <label><input type="radio" name="status" value="warn" /> Warn</label>
+          <label><input type="radio" name="status" value="down" /> Down</label>
+        </fieldset>
+
+        <div class="tag-row">
+          <label style="flex: 1 1 240px;">
+            Tags
+            <input type="text" id="tag-input" name="tags" placeholder="key:value" />
+          </label>
+          <div>
+            <button type="button" class="btn" data-action-id="ACT_ADD_TAG" onclick="US002.addTag()">Tag</button>
+          </div>
+        </div>
+        <div id="tag-list" class="tag-list"></div>
+
+        <div class="form-actions controls">
+          <button type="submit" class="btn" data-action-id="ACT_SAVE_RECORD">Save Changes</button>
+          <button type="button" class="btn" data-action-id="ACT_CANCEL_EDIT" onclick="US002.cancelEdit()">Cancel</button>
+        </div>
+      </form>
+
+      <section class="aux-controls tile-panel" aria-label="Editor aux controls">
+        <h2>Editor Options</h2>
+        <div class="controls">
+          <button type="button" class="icon-btn" data-action-id="ACT_CLOSE_DIALOG_1" onclick="US002.cancelEdit()" aria-label="Close">close</button>
+          <button type="button" class="icon-btn" data-action-id="ACT_CLOSE_DIALOG_2" onclick="US002.cancelEdit()" aria-label="Close">close</button>
+          <button type="button" class="icon-btn" data-action-id="ACT_CLOSE_DIALOG_3" onclick="US002.cancelEdit()" aria-label="Close">close</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="assets/js/recoverytile-canary.state.js" defer></script>
+    <script src="assets/js/recoverytile-canary.storage.js" defer></script>
+    <script src="assets/js/us-002/act_save_record.js" defer></script>
+    <script src="assets/js/us-002/act_cancel_edit.js" defer></script>
+    <script>
+      (function () {
+        "use strict";
+
+        const State = window.RecoveryTileState;
+        const Storage = window.RecoveryTileStorage;
+
+        function loadState() {
+          const loaded = Storage.load();
+          return loaded.state ? State.createState(loaded.state) : State.createDefaultState();
+        }
+
+        function saveState(nextState) {
+          Storage.save(nextState);
+        }
+
+        function escapeHtml(text) {
+          return String(text).replace(/[&<>"']/g, function (match) {
+            const map = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
+            return map[match];
+          });
+        }
+
+        function render() {
+          let state = loadState();
+
+          if (!state.selectedRecord) {
+            state = State.createState(Object.assign({}, state, { selectedRecord: "new", activeSurface: State.SCREENS.RECORD_EDITOR }));
+            saveState(state);
+          }
+
+          const form = document.getElementById("record-form");
+          if (!form) return;
+
+          const isNew = state.selectedRecord === "new";
+          const record = isNew
+            ? null
+            : state.records.find(function (r) {
+                return r.id === state.selectedRecord;
+              });
+
+          if (!isNew && !record) {
+            state = State.createState(Object.assign({}, state, { selectedRecord: "new" }));
+            saveState(state);
+          }
+
+          const target = record || {};
+          form.elements["name"].value = target.name || "";
+          form.elements["type"].value = target.type || "";
+          form.elements["notes"].value = target.notes || "";
+          form.elements["region"].value = target.region || "";
+          form.elements["priority"].value = String(target.priority || "3");
+
+          const status = target.status || "ok";
+          const radios = form.elements["status"];
+          for (let i = 0; i < radios.length; i++) {
+            radios[i].checked = radios[i].value === status;
+          }
+
+          const tagList = document.getElementById("tag-list");
+          if (tagList) {
+            const tags = Array.isArray(target.tags) ? target.tags : [];
+            tagList.innerHTML = tags
+              .map(function (tag) {
+                return '<span class="tag">' + escapeHtml(tag) + "</span>";
+              })
+              .join("");
+          }
+
+          const errorBanner = document.querySelector('[data-testid="last-error"]');
+          if (errorBanner) errorBanner.remove();
+          if (state.lastError) {
+            const main = document.querySelector('[data-setfarm-root="record-editor"]');
+            if (main) {
+              const banner = document.createElement("div");
+              banner.className = "error-banner";
+              banner.setAttribute("role", "alert");
+              banner.setAttribute("data-testid", "last-error");
+              banner.textContent = state.lastError;
+              main.insertBefore(banner, main.firstElementChild.nextElementSibling);
+            }
+          }
+        }
+
+        window.US002EditorRender = render;
+
+        window.US002 = window.US002 || {};
+
+        window.US002.addTag = function () {
+          const input = document.getElementById("tag-input");
+          const tagList = document.getElementById("tag-list");
+          if (!input || !tagList) return;
+          const value = String(input.value || "").trim();
+          if (!value) return;
+          const span = document.createElement("span");
+          span.className = "tag";
+          span.textContent = value;
+          tagList.appendChild(span);
+          input.value = "";
+        };
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", render);
+        } else {
+          render();
+        }
+      })();
+    </script>
+  </body>
+</html>
