@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Record Operations - RecoveryTile Canary</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <style>
+      .nav { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+      .toolbar { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+      .toolbar input[type="text"] { min-width: 220px; padding: 8px 12px; background: rgba(16,32,52,0.85); border: 1px solid rgba(103,232,249,0.3); color: inherit; }
+      .toolbar select { padding: 8px 12px; background: rgba(16,32,52,0.85); border: 1px solid rgba(103,232,249,0.3); color: inherit; }
+      .table-wrap { overflow-x: auto; }
+      table { width: 100%; border-collapse: collapse; }
+      th, td { padding: 10px; text-align: left; border-bottom: 1px solid rgba(103,232,249,0.15); }
+      th { color: #67e8f9; }
+      .status-pip { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
+      .status-pip--ok { background: #34d399; }
+      .status-pip--warn { background: #fbbf24; }
+      .status-pip--down { background: #f87171; }
+      .icon-btn { padding: 6px 10px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: inherit; cursor: pointer; }
+      .danger { border-color: rgba(248,113,113,0.5); color: #f87171; }
+      .empty-actions { display: flex; gap: 12px; flex-wrap: wrap; margin: 16px 0; }
+    </style>
+  </head>
+  <body>
+    <main data-setfarm-root="record-operations" data-testid="record-operations-root" class="app-shell">
+      <header class="hero">
+        <p class="eyebrow">RecoveryTile Canary</p>
+        <h1>Record Operations</h1>
+        <p class="summary">Search, create, select, and retry record operations.</p>
+        <nav class="nav" aria-label="Screen navigation">
+          <a href="index.html" class="btn">Home</a>
+          <a href="record-editor-recoverytile-canary.html" class="btn">Record Editor</a>
+          <a href="index.html" class="btn" data-action-id="ACT_DASHBOARD" onclick="US002.goDashboard(); return false;">dashboard</a>
+          <a href="record-operations-recoverytile-canary.html" class="btn" data-action-id="ACT_RECOVERY_JOBS" onclick="US002.goRecoveryJobs(); return false;">Recovery Jobs</a>
+          <a href="index.html" class="btn">Incident Logs</a>
+          <a href="index.html" class="btn">System Health</a>
+          <a href="index.html" class="btn">settings</a>
+          <a href="index.html" class="btn">Support</a>
+        </nav>
+      </header>
+
+      <section class="toolbar controls" aria-label="Record operations toolbar">
+        <button type="button" class="btn" data-action-id="ACT_NEW_RECOVERY_JOB" onclick="US002.newRecoveryJob()">New Recovery Job</button>
+        <input
+          type="text"
+          data-action-id="ACT_SEARCH_RECORDS"
+          placeholder="Search records..."
+          aria-label="Search records"
+          oninput="US002.searchRecords()"
+        />
+        <select data-action-id="ACT_FILTER_STATUS" aria-label="Filter status" onchange="US002.searchRecords()">
+          <option value="">All statuses</option>
+          <option value="ok">OK</option>
+          <option value="warn">Warn</option>
+          <option value="down">Down</option>
+        </select>
+        <button type="button" class="icon-btn" data-action-id="ACT_REFRESH_RECORDS" onclick="US002.refreshRecords()" aria-label="Refresh records">refresh</button>
+        <button type="button" class="icon-btn" data-action-id="ACT_SHARE_RECORDS" onclick="US002.shareRecords()" aria-label="Share records">ios_share</button>
+        <button type="button" class="btn" data-action-id="ACT_RETRY_LOAD" onclick="US002.retryLoad()">Retry Load</button>
+        <button type="button" class="btn" data-action-id="ACT_CREATE_RECORD" onclick="US002.createRecord()">Create Record</button>
+      </section>
+
+      <section class="record-list tile-panel" id="record-list-section">
+        <h2>Records</h2>
+        <div class="counts" id="record-counts"></div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Last Run</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="records-body">
+              <tr data-record-id="rec-1">
+                <td><code>rec-1</code></td>
+                <td>Backup Job Alpha</td>
+                <td><span class="status-pip status-pip--ok"></span>ok</td>
+                <td>2026-06-20T22:00:00Z</td>
+                <td>
+                  <button type="button" class="btn" data-action-id="ACT_SELECT_RECORD" data-record-id="rec-1" onclick="US002.selectRecord('rec-1')">Select</button>
+                  <button type="button" class="icon-btn" data-action-id="ACT_ROW_MENU" data-record-id="rec-1" onclick="US002.rowMenu('rec-1')" aria-label="Row options">more_vert</button>
+                </td>
+              </tr>
+              <tr data-record-id="rec-2">
+                <td><code>rec-2</code></td>
+                <td>Replication Beta</td>
+                <td><span class="status-pip status-pip--warn"></span>warn</td>
+                <td>2026-06-20T21:30:00Z</td>
+                <td>
+                  <button type="button" class="btn" data-action-id="ACT_SELECT_RECORD" data-record-id="rec-2" onclick="US002.selectRecord('rec-2')">Select</button>
+                  <button type="button" class="icon-btn" data-action-id="ACT_ROW_MENU" data-record-id="rec-2" onclick="US002.rowMenu('rec-2')" aria-label="Row options">more_vert</button>
+                </td>
+              </tr>
+              <tr data-record-id="rec-3">
+                <td><code>rec-3</code></td>
+                <td>Index Gamma</td>
+                <td><span class="status-pip status-pip--down"></span>down</td>
+                <td>2026-06-20T20:00:00Z</td>
+                <td>
+                  <button type="button" class="btn" data-action-id="ACT_SELECT_RECORD" data-record-id="rec-3" onclick="US002.selectRecord('rec-3')">Select</button>
+                  <button type="button" class="icon-btn" data-action-id="ACT_ROW_MENU" data-record-id="rec-3" onclick="US002.rowMenu('rec-3')" aria-label="Row options">more_vert</button>
+                </td>
+              </tr>
+              <tr data-record-id="rec-4">
+                <td><code>rec-4</code></td>
+                <td>Delta Stream</td>
+                <td><span class="status-pip status-pip--ok"></span>ok</td>
+                <td>2026-06-20T19:00:00Z</td>
+                <td>
+                  <button type="button" class="btn" data-action-id="ACT_SELECT_RECORD" data-record-id="rec-4" onclick="US002.selectRecord('rec-4')">Select</button>
+                  <button type="button" class="icon-btn" data-action-id="ACT_ROW_MENU" data-record-id="rec-4" onclick="US002.rowMenu('rec-4')" aria-label="Row options">more_vert</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="empty-recovery tile-panel" id="empty-recovery-section" hidden>
+        <h2>No records available</h2>
+        <p>The record list is empty or the last load failed.</p>
+        <div class="empty-actions">
+          <button type="button" class="btn" data-action-id="ACT_RETRY_LOAD" onclick="US002.retryLoad()">Retry Load</button>
+          <button type="button" class="btn" data-action-id="ACT_CREATE_RECORD_EMPTY" onclick="US002.createRecord()">Create Record</button>
+          <button type="button" class="btn" data-action-id="ACT_CLEAR_FILTERS" onclick="US002.clearFilters()">Clear Filters</button>
+        </div>
+        <nav class="nav">
+          <a href="index.html">View Status Page</a>
+          <a href="index.html">Read Runbook [ERR-409]</a>
+        </nav>
+      </section>
+
+      <section class="detail-panel tile-panel" id="detail-panel">
+        <h2>Selected Record Actions</h2>
+        <p class="summary">Use these controls on the currently selected record.</p>
+        <div class="controls">
+          <button type="button" class="btn" data-action-id="ACT_CLOSE_DETAIL" onclick="US002.closeDetail()">close</button>
+          <button type="button" class="btn" data-action-id="ACT_ACKNOWLEDGE" onclick="US002.acknowledgeRecord()">Acknowledge</button>
+          <button type="button" class="btn danger" data-action-id="ACT_KILL_PROCESS" onclick="US002.killRecord()">Kill Process</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="assets/js/recoverytile-canary.state.js" defer></script>
+    <script src="assets/js/recoverytile-canary.storage.js" defer></script>
+    <script src="assets/js/us-002/act_search_records.js" defer></script>
+    <script src="assets/js/us-002/act_create_record.js" defer></script>
+    <script src="assets/js/us-002/act_select_record.js" defer></script>
+    <script src="assets/js/us-002/act_retry_load.js" defer></script>
+    <script>
+      (function () {
+        "use strict";
+
+        const State = window.RecoveryTileState;
+        const Storage = window.RecoveryTileStorage;
+
+        function loadState() {
+          const loaded = Storage.load();
+          return loaded.state ? State.createState(loaded.state) : State.createDefaultState();
+        }
+
+        function saveState(nextState) {
+          Storage.save(nextState);
+        }
+
+        function escapeHtml(text) {
+          return String(text).replace(/[&<>"']/g, function (match) {
+            const map = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
+            return map[match];
+          });
+        }
+
+        function formatDate(value) {
+          if (!value) return "—";
+          try {
+            return new Date(value).toISOString();
+          } catch (e) {
+            return String(value);
+          }
+        }
+
+        function getFilteredRecords(state) {
+          const query = String(state.searchQuery || "").toLowerCase();
+          const statusFilter = String(state.statusFilter || "").toLowerCase();
+          return state.records.filter(function (record) {
+            const matchesQuery =
+              !query ||
+              String(record.name || "").toLowerCase().includes(query) ||
+              String(record.id || "").toLowerCase().includes(query) ||
+              String(record.region || "").toLowerCase().includes(query);
+            const matchesStatus = !statusFilter || String(record.status || "").toLowerCase() === statusFilter;
+            return matchesQuery && matchesStatus;
+          });
+        }
+
+        function render() {
+          const state = loadState();
+          state.activeSurface = State.SCREENS.RECORD_OPERATIONS;
+          saveState(state);
+
+          const searchInput = document.querySelector('[data-action-id="ACT_SEARCH_RECORDS"]');
+          if (searchInput) searchInput.value = state.searchQuery || "";
+
+          const filterSelect = document.querySelector('[data-action-id="ACT_FILTER_STATUS"]');
+          if (filterSelect) filterSelect.value = state.statusFilter || "";
+
+          const listSection = document.getElementById("record-list-section");
+          const emptySection = document.getElementById("empty-recovery-section");
+          const countsEl = document.getElementById("record-counts");
+          const tbody = document.getElementById("records-body");
+
+          const filtered = getFilteredRecords(state);
+
+          if (countsEl) {
+            const total = state.records.length;
+            const visible = filtered.length;
+            countsEl.innerHTML =
+              '<span class="count count--total">Total: ' + total + '</span>' +
+              '<span class="count count--ok">Visible: ' + visible + '</span>';
+          }
+
+          if (state.records.length === 0) {
+            if (listSection) listSection.hidden = true;
+            if (emptySection) emptySection.hidden = false;
+          } else {
+            if (listSection) listSection.hidden = false;
+            if (emptySection) emptySection.hidden = true;
+
+            if (tbody) {
+              tbody.innerHTML = filtered
+                .map(function (record) {
+                  return (
+                    '<tr data-record-id="' + escapeHtml(record.id) + '">' +
+                    "<td><code>" + escapeHtml(record.id) + "</code></td>" +
+                    "<td>" + escapeHtml(record.name) + "</td>" +
+                    '<td><span class="status-pip status-pip--' + escapeHtml(record.status) + '"></span>' + escapeHtml(record.status) + "</td>" +
+                    "<td>" + escapeHtml(formatDate(record.lastRun)) + "</td>" +
+                    '<td>' +
+                    '<button type="button" class="btn" data-action-id="ACT_SELECT_RECORD" data-record-id="' + escapeHtml(record.id) + '" onclick="US002.selectRecord(\'' + escapeHtml(record.id) + '\')">Select</button>' +
+                    '<button type="button" class="icon-btn" data-action-id="ACT_ROW_MENU" data-record-id="' + escapeHtml(record.id) + '" onclick="US002.rowMenu(\'' + escapeHtml(record.id) + '\')" aria-label="Row options">more_vert</button>' +
+                    "</td>" +
+                    "</tr>"
+                  );
+                })
+                .join("");
+            }
+          }
+
+          const errorBanner = document.querySelector('[data-testid="last-error"]');
+          if (errorBanner) errorBanner.remove();
+          if (state.lastError) {
+            const main = document.querySelector('[data-setfarm-root="record-operations"]');
+            if (main) {
+              const banner = document.createElement("div");
+              banner.className = "error-banner";
+              banner.setAttribute("role", "alert");
+              banner.setAttribute("data-testid", "last-error");
+              banner.textContent = state.lastError;
+              main.insertBefore(banner, main.firstElementChild.nextElementSibling);
+            }
+          }
+        }
+
+        window.US002OperationsRender = render;
+
+        window.US002 = window.US002 || {};
+
+        window.US002.goDashboard = function () {
+          window.location.href = "index.html";
+        };
+
+        window.US002.goRecoveryJobs = function () {
+          window.location.href = "record-operations-recoverytile-canary.html";
+        };
+
+        window.US002.refreshRecords = function () {
+          window.US002.retryLoad();
+        };
+
+        window.US002.shareRecords = function () {
+          const state = loadState();
+          const blob = new Blob([JSON.stringify(state.records, null, 2)], { type: "application/json" });
+          const url = URL.createObjectURL(blob);
+          const anchor = document.createElement("a");
+          anchor.href = url;
+          anchor.download = "recoverytile-records.json";
+          document.body.appendChild(anchor);
+          anchor.click();
+          document.body.removeChild(anchor);
+          setTimeout(function () {
+            URL.revokeObjectURL(url);
+          }, 100);
+        };
+
+        window.US002.newRecoveryJob = function () {
+          window.US002.createRecord();
+        };
+
+        window.US002.rowMenu = function (recordId) {
+          const state = loadState();
+          state.selectedRecord = recordId;
+          saveState(state);
+          alert("Row options for " + recordId);
+        };
+
+        window.US002.clearFilters = function () {
+          const state = loadState();
+          state.searchQuery = "";
+          state.statusFilter = "";
+          state.lastError = null;
+          saveState(state);
+          render();
+        };
+
+        window.US002.closeDetail = function () {
+          const state = loadState();
+          state.selectedRecord = null;
+          saveState(state);
+        };
+
+        window.US002.acknowledgeRecord = function () {
+          const state = loadState();
+          if (!state.selectedRecord) {
+            state.lastError = "No record selected to acknowledge.";
+            saveState(state);
+            render();
+            return;
+          }
+          state.records = state.records.map(function (r) {
+            if (r.id !== state.selectedRecord) return r;
+            return Object.assign({}, r, { acknowledged: true, status: r.status === "down" ? "warn" : r.status });
+          });
+          state.lastError = null;
+          saveState(state);
+          render();
+        };
+
+        window.US002.killRecord = function () {
+          const state = loadState();
+          if (!state.selectedRecord) {
+            state.lastError = "No record selected to kill.";
+            saveState(state);
+            render();
+            return;
+          }
+          if (!confirm("Kill process for record " + state.selectedRecord + "?")) return;
+          state.records = state.records.map(function (r) {
+            if (r.id !== state.selectedRecord) return r;
+            return Object.assign({}, r, { status: "down" });
+          });
+          state.lastError = null;
+          saveState(state);
+          render();
+        };
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", render);
+        } else {
+          render();
+        }
+      })();
+    </script>
+  </body>
+</html>
