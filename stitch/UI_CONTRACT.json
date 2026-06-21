@@ -1,0 +1,496 @@
+[
+  {
+    "screenId": "5e2ff960a34b48419d2f50397401c3d9",
+    "screenTitle": "Record Editor - RecoveryTile Canary",
+    "deviceType": "DESKTOP",
+    "elements": [
+      {
+        "type": "button",
+        "label": "close",
+        "line": 111
+      },
+      {
+        "type": "button",
+        "label": "Cancel",
+        "line": 124
+      },
+      {
+        "type": "button",
+        "label": "Save Changes",
+        "line": 125
+      },
+      {
+        "type": "button",
+        "label": "close",
+        "line": 214
+      },
+      {
+        "type": "button",
+        "label": "close",
+        "line": 218
+      },
+      {
+        "type": "button",
+        "label": "close",
+        "line": 222
+      },
+      {
+        "type": "button",
+        "label": "Tag",
+        "line": 227
+      },
+      {
+        "type": "input",
+        "label": "text",
+        "inputType": "text",
+        "line": 152
+      },
+      {
+        "type": "input",
+        "label": "select",
+        "inputType": "select",
+        "line": 158
+      },
+      {
+        "type": "input",
+        "label": "textarea",
+        "inputType": "textarea",
+        "line": 169
+      },
+      {
+        "type": "input",
+        "label": "text",
+        "inputType": "text",
+        "line": 180
+      },
+      {
+        "type": "input",
+        "label": "number",
+        "inputType": "number",
+        "line": 187
+      },
+      {
+        "type": "input",
+        "label": "radio",
+        "inputType": "radio",
+        "line": 197
+      },
+      {
+        "type": "input",
+        "label": "radio",
+        "inputType": "radio",
+        "line": 201
+      },
+      {
+        "type": "input",
+        "label": "key:value",
+        "inputType": "text",
+        "placeholder": "key:value",
+        "line": 226
+      },
+      {
+        "type": "form",
+        "label": "form",
+        "line": 143
+      }
+    ],
+    "navigation": [],
+    "buttons": [
+      {
+        "type": "button",
+        "label": "close",
+        "line": 111
+      },
+      {
+        "type": "button",
+        "label": "Cancel",
+        "line": 124
+      },
+      {
+        "type": "button",
+        "label": "Save Changes",
+        "line": 125
+      },
+      {
+        "type": "button",
+        "label": "close",
+        "line": 214
+      },
+      {
+        "type": "button",
+        "label": "close",
+        "line": 218
+      },
+      {
+        "type": "button",
+        "label": "close",
+        "line": 222
+      },
+      {
+        "type": "button",
+        "label": "Tag",
+        "line": 227
+      }
+    ],
+    "inputs": [
+      {
+        "type": "input",
+        "label": "text",
+        "inputType": "text",
+        "line": 152
+      },
+      {
+        "type": "input",
+        "label": "select",
+        "inputType": "select",
+        "line": 158
+      },
+      {
+        "type": "input",
+        "label": "textarea",
+        "inputType": "textarea",
+        "line": 169
+      },
+      {
+        "type": "input",
+        "label": "text",
+        "inputType": "text",
+        "line": 180
+      },
+      {
+        "type": "input",
+        "label": "number",
+        "inputType": "number",
+        "line": 187
+      },
+      {
+        "type": "input",
+        "label": "radio",
+        "inputType": "radio",
+        "line": 197
+      },
+      {
+        "type": "input",
+        "label": "radio",
+        "inputType": "radio",
+        "line": 201
+      },
+      {
+        "type": "input",
+        "label": "key:value",
+        "inputType": "text",
+        "placeholder": "key:value",
+        "line": 226
+      }
+    ],
+    "hardcodedData": [],
+    "totalInteractive": 16,
+    "requiresRouter": false,
+    "requiresDragDrop": false
+  },
+  {
+    "screenId": "8ef8d05be17f4413997dc0045567264c",
+    "screenTitle": "Empty and Error Recovery - RecoveryTile Canary",
+    "deviceType": "DESKTOP",
+    "elements": [
+      {
+        "type": "link",
+        "label": "View Status Page",
+        "href": "#",
+        "line": 232
+      },
+      {
+        "type": "link",
+        "label": "Read Runbook [ERR-409]",
+        "href": "#",
+        "line": 236
+      },
+      {
+        "type": "button",
+        "label": "Retry Load",
+        "line": 205
+      },
+      {
+        "type": "button",
+        "label": "Create Record",
+        "line": 210
+      },
+      {
+        "type": "button",
+        "label": "Clear Filters",
+        "line": 215
+      }
+    ],
+    "navigation": [
+      {
+        "type": "link",
+        "label": "View Status Page",
+        "href": "#",
+        "line": 232
+      },
+      {
+        "type": "link",
+        "label": "Read Runbook [ERR-409]",
+        "href": "#",
+        "line": 236
+      }
+    ],
+    "buttons": [
+      {
+        "type": "button",
+        "label": "Retry Load",
+        "line": 205
+      },
+      {
+        "type": "button",
+        "label": "Create Record",
+        "line": 210
+      },
+      {
+        "type": "button",
+        "label": "Clear Filters",
+        "line": 215
+      }
+    ],
+    "inputs": [],
+    "hardcodedData": [],
+    "totalInteractive": 5,
+    "requiresRouter": false,
+    "requiresDragDrop": false
+  },
+  {
+    "screenId": "1b9e958d728a4562b9c4b5dbb0e9286b",
+    "screenTitle": "Record Operations - RecoveryTile Canary",
+    "deviceType": "DESKTOP",
+    "elements": [
+      {
+        "type": "link",
+        "label": "dashboard",
+        "href": "#",
+        "line": 119
+      },
+      {
+        "type": "link",
+        "label": "Recovery Jobs",
+        "href": "#",
+        "line": 125
+      },
+      {
+        "type": "link",
+        "label": "Incident Logs",
+        "href": "#",
+        "line": 131
+      },
+      {
+        "type": "link",
+        "label": "System Health",
+        "href": "#",
+        "line": 137
+      },
+      {
+        "type": "link",
+        "label": "settings",
+        "href": "#",
+        "line": 145
+      },
+      {
+        "type": "link",
+        "label": "Support",
+        "href": "#",
+        "line": 151
+      },
+      {
+        "type": "button",
+        "label": "New Recovery Job",
+        "line": 113
+      },
+      {
+        "type": "button",
+        "label": "refresh",
+        "line": 168
+      },
+      {
+        "type": "button",
+        "label": "ios_share",
+        "line": 171
+      },
+      {
+        "type": "button",
+        "label": "Retry Load",
+        "line": 188
+      },
+      {
+        "type": "button",
+        "label": "Create Record",
+        "line": 192
+      },
+      {
+        "type": "button",
+        "label": "more_vert",
+        "line": 258
+      },
+      {
+        "type": "button",
+        "label": "more_vert",
+        "line": 275
+      },
+      {
+        "type": "button",
+        "label": "more_vert",
+        "line": 291
+      },
+      {
+        "type": "button",
+        "label": "more_vert",
+        "line": 307
+      },
+      {
+        "type": "button",
+        "label": "close",
+        "line": 326
+      },
+      {
+        "type": "button",
+        "label": "Acknowledge",
+        "line": 344
+      },
+      {
+        "type": "button",
+        "label": "Kill Process",
+        "line": 347
+      },
+      {
+        "type": "input",
+        "label": "Search records...",
+        "inputType": "text",
+        "placeholder": "Search records...",
+        "line": 166
+      },
+      {
+        "type": "input",
+        "label": "select",
+        "inputType": "select",
+        "line": 218
+      }
+    ],
+    "navigation": [
+      {
+        "type": "link",
+        "label": "dashboard",
+        "href": "#",
+        "line": 119
+      },
+      {
+        "type": "link",
+        "label": "Recovery Jobs",
+        "href": "#",
+        "line": 125
+      },
+      {
+        "type": "link",
+        "label": "Incident Logs",
+        "href": "#",
+        "line": 131
+      },
+      {
+        "type": "link",
+        "label": "System Health",
+        "href": "#",
+        "line": 137
+      },
+      {
+        "type": "link",
+        "label": "settings",
+        "href": "#",
+        "line": 145
+      },
+      {
+        "type": "link",
+        "label": "Support",
+        "href": "#",
+        "line": 151
+      }
+    ],
+    "buttons": [
+      {
+        "type": "button",
+        "label": "New Recovery Job",
+        "line": 113
+      },
+      {
+        "type": "button",
+        "label": "refresh",
+        "line": 168
+      },
+      {
+        "type": "button",
+        "label": "ios_share",
+        "line": 171
+      },
+      {
+        "type": "button",
+        "label": "Retry Load",
+        "line": 188
+      },
+      {
+        "type": "button",
+        "label": "Create Record",
+        "line": 192
+      },
+      {
+        "type": "button",
+        "label": "more_vert",
+        "line": 258
+      },
+      {
+        "type": "button",
+        "label": "more_vert",
+        "line": 275
+      },
+      {
+        "type": "button",
+        "label": "more_vert",
+        "line": 291
+      },
+      {
+        "type": "button",
+        "label": "more_vert",
+        "line": 307
+      },
+      {
+        "type": "button",
+        "label": "close",
+        "line": 326
+      },
+      {
+        "type": "button",
+        "label": "Acknowledge",
+        "line": 344
+      },
+      {
+        "type": "button",
+        "label": "Kill Process",
+        "line": 347
+      }
+    ],
+    "inputs": [
+      {
+        "type": "input",
+        "label": "Search records...",
+        "inputType": "text",
+        "placeholder": "Search records...",
+        "line": 166
+      },
+      {
+        "type": "input",
+        "label": "select",
+        "inputType": "select",
+        "line": 218
+      }
+    ],
+    "hardcodedData": [],
+    "totalInteractive": 20,
+    "requiresRouter": false,
+    "requiresDragDrop": false
+  }
+]
